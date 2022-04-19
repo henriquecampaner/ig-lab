@@ -6,6 +6,11 @@ type GetByCourseAndStudentIdParams = {
   studentId: string;
 };
 
+type CreateEnrollmentParams = {
+  courseId: string;
+  studentId: string;
+};
+
 @Injectable()
 export class EnrollmentsServices {
   constructor(private readonly prisma: PrismaService) {}
@@ -42,6 +47,15 @@ export class EnrollmentsServices {
       },
       orderBy: {
         createdAt: 'desc',
+      },
+    });
+  }
+
+  createEnrollment({ courseId, studentId }: CreateEnrollmentParams) {
+    return this.prisma.enrollment.create({
+      data: {
+        courseId,
+        studentId,
       },
     });
   }

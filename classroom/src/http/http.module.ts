@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { DatabseModule } from 'src/databse/databse.module';
+import { DatabaseModule } from 'src/databse/database.module';
 import path from 'node:path';
-import { ApolloDriver } from '@nestjs/apollo';
+import {
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
 import { CoursesResolver } from './graphql/resolvers/courses.resolver';
 import { StudentsResolver } from './graphql/resolvers/students.resolver';
 import { EnrollmentsResolver } from './graphql/resolvers/enrollments.resolver';
@@ -25,10 +28,10 @@ import { EnrollmentsServices } from 'src/services/enrollments.service';
   ],
   imports: [
     ConfigModule.forRoot(),
-    DatabseModule,
-    GraphQLModule.forRoot({
+    DatabaseModule,
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       autoSchemaFile: path.resolve(process.cwd(), 'src/schema.gql'),
-      driver: ApolloDriver,
+      driver: ApolloFederationDriver,
     }),
   ],
 })
