@@ -20,11 +20,11 @@ import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
           subgraphs: [
             {
               name: 'purchases',
-              url: 'http://localhost:3003/graphql',
+              url: 'http://localhost:3002/graphql',
             },
             {
               name: 'classroom',
-              url: 'http://localhost:3002/graphql',
+              url: 'http://localhost:3003/graphql',
             },
           ],
         }),
